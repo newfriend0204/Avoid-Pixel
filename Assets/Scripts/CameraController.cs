@@ -14,6 +14,13 @@ public class CameraController : MonoBehaviour {
     }
 
     void Update() {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        transform.Translate(new Vector3(vertical, 0, -horizontal) * 0.5f);
+
+
+
         Vector3 dir = new Vector3(moveobject.Vertical, 0, -moveobject.Horizontal);
         dir.Normalize();
 

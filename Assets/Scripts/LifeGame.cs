@@ -11,28 +11,11 @@ public class LifeGame : MonoBehaviour {
     private int[,] cellStates = new int[gridSize, gridSize];
     Random rand = new Random();
     void Start() {
-        // 셀 상태 초기화
-        //cellStates = new int[,]
-        //{
-        //    {0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1},
-        //    {1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0},
-        //    {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0},
-        //    {1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1},
-        //    {0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0},
-        //    {1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0},
-        //    {0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0},
-        //    {1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0},
-        //    {0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1},
-        //    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-        //    {0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0},
-        //    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0},
-        //    {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0},
-        //    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0},
-        //    {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0}
-        //};
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                cellStates[i, j] = rand.Next(2);
+                int save = rand.Next(3);
+                if (save == 2)
+                    cellStates[i, j] = 1;
             }
         }
 
@@ -45,7 +28,7 @@ public class LifeGame : MonoBehaviour {
                 }
             }
         }
-        InvokeRepeating("ShowDisplay", 1f, 0.3f);
+        InvokeRepeating("ShowDisplay", 1f, 1f);
     }
 
     void ShowDisplay() {

@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
-public class ChangeColor : MonoBehaviour {
+public class Life : MonoBehaviour {
     private Renderer rend;
     private float colorLerp = 0f;
-
     void Start() {
         rend = GetComponent<Renderer>();
         StartCoroutine(ChangeColorRoutine());

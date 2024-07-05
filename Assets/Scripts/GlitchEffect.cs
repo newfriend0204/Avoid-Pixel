@@ -36,14 +36,26 @@ public class GlitchEffect : MonoBehaviour
 	private float _glitchdownTime = 0.05f;
 	private float _flickerTime = 0.5f;
 	private Material _material;
+	public GameObject hide;
 
-	void Start()
+    public void IncreaseIntensity() {
+        intensity += 0.5f;
+        flipIntensity += 0.1f;
+        colorIntensity += 0.1f;
+    }
+	
+    void Start()
 	{
 		_material = new Material(Shader);
 	}
 
-	// Called by camera to apply image effect
-	void OnRenderImage(RenderTexture source, RenderTexture destination)
+    private void Update() {
+		if (intensity > 15 && flipIntensity > 2 && colorIntensity > 2)
+			hide.gameObject.SetActive(true);
+    }
+
+    // Called by camera to apply image effect
+    void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
 		_material.SetFloat("_Intensity", intensity);
 		_material.SetFloat("_ColorIntensity", colorIntensity);
