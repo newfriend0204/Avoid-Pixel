@@ -9,6 +9,7 @@ to make derivative works
 to make commercial use of the work
 */
 
+using System.Collections;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -37,13 +38,22 @@ public class GlitchEffect : MonoBehaviour
 	private float _flickerTime = 0.5f;
 	private Material _material;
 	public GameObject hide;
+	private int check_glitch = 0;
 
     public void IncreaseIntensity() {
+		check_glitch = 1;
         intensity += 0.5f;
-        flipIntensity += 0.1f;
-        colorIntensity += 0.1f;
+        flipIntensity += 0.08f;
+        colorIntensity += 0.08f;
+        StartCoroutine(DecreaseIntensity());
     }
-	
+
+    private IEnumerator DecreaseIntensity() {
+        yield return new WaitForSeconds(3f);
+		if (check_glitch == 1)
+			check_glitch = 0;
+    } 
+
     void Start()
 	{
 		_material = new Material(Shader);
@@ -52,7 +62,15 @@ public class GlitchEffect : MonoBehaviour
     private void Update() {
 		if (intensity > 15 && flipIntensity > 2 && colorIntensity > 2)
 			hide.gameObject.SetActive(true);
-    }
+		if (check_glitch == 0) {
+			if (intensity > 0)
+				intensity -= 0.05f;
+			if (flipIntensity > 0)
+				flipIntensity -= 0.008f;
+			if (colorIntensity > 0)
+				colorIntensity -= 0.008f;
+		}
+	}
 
     // Called by camera to apply image effect
     void OnRenderImage(RenderTexture source, RenderTexture destination)

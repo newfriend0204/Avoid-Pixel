@@ -13,9 +13,7 @@ public class LifeGame : MonoBehaviour {
     void Start() {
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                int save = rand.Next(3);
-                if (save == 2)
-                    cellStates[i, j] = 1;
+                cellStates[i, j] = rand.Next(2);
             }
         }
 
@@ -28,15 +26,13 @@ public class LifeGame : MonoBehaviour {
                 }
             }
         }
-        InvokeRepeating("ShowDisplay", 1f, 1f);
+        InvokeRepeating("ShowDisplay", 1f, 0.3f);
     }
 
     void ShowDisplay() {
         //랜덤으로 세포 생성
-        if (rand.NextDouble() < 0.7) {
-            for (int i = 0; i < gridSize * gridSize / 100; i++)
-                cellStates[rand.Next(gridSize), rand.Next(gridSize)] = 1;
-        }
+        for (int i = 0; i < gridSize * gridSize / 30; i++)
+            cellStates[rand.Next(gridSize), rand.Next(gridSize)] = 1;
         // 다음 세대 계산
         int[,] nextCellStates = new int[gridSize, gridSize];
         for (int x = 0; x < gridSize; x++) {
