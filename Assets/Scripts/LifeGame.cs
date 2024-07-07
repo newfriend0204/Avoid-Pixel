@@ -26,7 +26,7 @@ public class LifeGame : MonoBehaviour {
                 }
             }
         }
-        InvokeRepeating("ShowDisplay", 1f, 0.3f);
+        InvokeRepeating("ShowDisplay", 1f, 0.6f);
     }
 
     void ShowDisplay() {

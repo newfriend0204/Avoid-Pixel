@@ -42,14 +42,14 @@ public class GlitchEffect : MonoBehaviour
 
     public void IncreaseIntensity() {
 		check_glitch = 1;
-        intensity += 0.5f;
+        intensity += 0.6f;
         flipIntensity += 0.08f;
-        colorIntensity += 0.08f;
+        colorIntensity += 0.1f;
         StartCoroutine(DecreaseIntensity());
     }
 
     private IEnumerator DecreaseIntensity() {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 		if (check_glitch == 1)
 			check_glitch = 0;
     } 
@@ -60,7 +60,7 @@ public class GlitchEffect : MonoBehaviour
 	}
 
     private void Update() {
-		if (intensity > 15 && flipIntensity > 2 && colorIntensity > 2)
+        if (intensity > 9)
 			hide.gameObject.SetActive(true);
 		if (check_glitch == 0) {
 			if (intensity > 0)
