@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GlitchEffect Script;
+    public int check_protect = 0;
 
-    void OnCollisionEnter(Collision col) {
-        if (col.collider.gameObject.CompareTag("Life"))
+    void OnTriggerEnter(Collider col) {
+        if (col.gameObject.CompareTag("Life") && check_protect == 0)
             Script.IncreaseIntensity();
     }
 }
