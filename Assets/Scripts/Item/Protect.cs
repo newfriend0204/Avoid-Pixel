@@ -5,6 +5,7 @@ using UnityEngine;
 public class Protect : MonoBehaviour {
     public GameObject Protect_Sphere;
     public GameObject Player;
+    public GameObject Protect_Image;
     public PlayerController Script;
     public int check_protect = 0;
     int check_timer = 0;
@@ -14,6 +15,7 @@ public class Protect : MonoBehaviour {
     }
 
     public void Update() {
+        Protect_Image.transform.position = Protect_Sphere.transform.position;
         if (check_protect == 1) {
             Script.check_protect = 1;
             Protect_Sphere.transform.position = Player.transform.position;
@@ -28,7 +30,7 @@ public class Protect : MonoBehaviour {
         check_timer = 0;
         check_protect = 0;
         Script.check_protect = 0;
-        Protect_Sphere.transform.position = new Vector3(5, 5, 5);
+        Protect_Sphere.transform.position = new Vector3(-16.17f, 0, -61.74f);
     }
 
     void OnTriggerEnter(Collider col) {

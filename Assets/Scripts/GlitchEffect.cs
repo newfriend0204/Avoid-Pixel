@@ -42,9 +42,9 @@ public class GlitchEffect : MonoBehaviour
 
     public void IncreaseIntensity() {
 		check_glitch = 1;
-        intensity += 0.6f;
-        flipIntensity += 0.08f;
-        colorIntensity += 0.1f;
+        intensity += 0.72f;
+        flipIntensity += 0.12f;
+        colorIntensity += 0.12f;
         StartCoroutine(DecreaseIntensity());
     }
 
