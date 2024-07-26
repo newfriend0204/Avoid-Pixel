@@ -1,16 +1,23 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
-using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using Random = System.Random;
 
-public class LifeGame : MonoBehaviour {
-    public const int gridSize = 100;
-    public GameObject planePrefab;
-    private GameObject[,] planeGrid;
-    private int[,] cellStates = new int[gridSize, gridSize];
+public class GameManager : MonoBehaviour
+{
     Random rand = new Random();
+    public const int gridSize = 100;
+    public GameObject life;
+    public GameObject[,] planeGrid;
+    public int[,] cellStates = new int[gridSize, gridSize];
+    public GameObject Pixels;
+    public float getPixels = 0f;
     void Start() {
+        for (int i = 0; i < 200; i++) {
+            SpawnObject();
+        }
+
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 cellStates[i, j] = rand.Next(2);
@@ -22,16 +29,27 @@ public class LifeGame : MonoBehaviour {
         for (int x = 0; x < gridSize; x++) {
             for (int y = 0; y < gridSize; y++) {
                 if (cellStates[y, x] == 1) {
-                    planeGrid[x, y] = Instantiate(planePrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    GameObject newLife = Instantiate(life, new Vector3(x, 0, y), Quaternion.identity);
+                    Life Life_Script = newLife.GetComponent<Life>();
+                    Life_Script.x = x;
+                    Life_Script.y = y;
+                    planeGrid[x, y] = newLife;
                 }
             }
         }
-        InvokeRepeating("ShowDisplay", 1f, 0.6f);
+        InvokeRepeating("ShowDisplay", 1f, 0.5f);
+    }
+
+    public void SpawnObject() {
+        float randomX = (float)rand.NextDouble() * (98 - 2) + 2;
+        float randomZ = (float)rand.NextDouble() * (98 - 2) + 2;
+        Vector3 randomPosition = new Vector3(randomX, transform.position.y, randomZ);
+        Instantiate(Pixels, randomPosition, Quaternion.identity);
     }
 
     void ShowDisplay() {
         //랜덤으로 세포 생성
-        for (int i = 0; i < gridSize * gridSize / 30; i++)
+        for (int i = 0; i < gridSize * gridSize / 28; i++)
             cellStates[rand.Next(gridSize), rand.Next(gridSize)] = 1;
         // 다음 세대 계산
         int[,] nextCellStates = new int[gridSize, gridSize];
@@ -59,7 +77,11 @@ public class LifeGame : MonoBehaviour {
                 if (cellStates[y, x] != nextCellStates[y, x]) {
                     if (nextCellStates[y, x] == 1) {
                         // 새로운 셀 생성
-                        planeGrid[x, y] = Instantiate(planePrefab, new Vector3(x, 0, y), Quaternion.identity);
+                        GameObject newLife = Instantiate(life, new Vector3(x, 0, y), Quaternion.identity);
+                        Life Life_Script = newLife.GetComponent<Life>();
+                        Life_Script.x = x;
+                        Life_Script.y = y;
+                        planeGrid[x, y] = newLife;
                     } else {
                         // 셀 삭제
                         Destroy(planeGrid[x, y]);

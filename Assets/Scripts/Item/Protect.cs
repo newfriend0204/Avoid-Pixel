@@ -7,6 +7,7 @@ public class Protect : MonoBehaviour {
     public GameObject Player;
     public GameObject Protect_Image;
     public PlayerController Script;
+    public GameManager GameManager;
     public int check_protect = 0;
     int check_timer = 0;
 
@@ -34,7 +35,12 @@ public class Protect : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider col) {
-        if (col.gameObject.CompareTag("Life"))
+        if (col.gameObject.CompareTag("Life")) {
+            Life col_life = col.GetComponent<Life>();
+            int x = col_life.x;
+            int y = col_life.y;
+            GameManager.cellStates[y, x] = 0;
             Destroy(col.gameObject);
+        }
     }
 }
