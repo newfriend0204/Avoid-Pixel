@@ -16,6 +16,7 @@ public class Protect : MonoBehaviour {
     }
 
     public void Update() {
+        Protect_Image.transform.Rotate(Vector3.forward * 100 * Time.deltaTime);
         Protect_Image.transform.position = Protect_Sphere.transform.position;
         if (check_protect == 1) {
             Script.check_protect = 1;

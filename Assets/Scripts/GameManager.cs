@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class GameManager : MonoBehaviour
     public int[,] cellStates = new int[gridSize, gridSize];
     public GameObject Pixels;
     public float getPixels = 0f;
+    public Protect Protect_Script;
+    public Image GetPixels_bar;
+    public float currentFillAmount;
+    public float needPixels = 5.0f;
     void Start() {
         for (int i = 0; i < 200; i++) {
             SpawnObject();
@@ -38,6 +43,21 @@ public class GameManager : MonoBehaviour
             }
         }
         InvokeRepeating("ShowDisplay", 1f, 0.5f);
+    }
+
+    private void Update() {
+        float targetFill = getPixels / needPixels * (1 - 0.163f) + 0.163f;
+        if (currentFillAmount < targetFill) {
+            currentFillAmount += 1 * Time.deltaTime;
+        currentFillAmount = Mathf.Clamp(currentFillAmount, 0.163f, 1.0f);
+        GetPixels_bar.fillAmount = currentFillAmount;
+        }
+        if (getPixels >= needPixels && currentFillAmount >= 1) {
+            getPixels = 0;
+            Protect_Script.check_protect = 1;
+            currentFillAmount = 0.163f;
+            GetPixels_bar.fillAmount = currentFillAmount;
+        }
     }
 
     public void SpawnObject() {
